@@ -11,6 +11,8 @@
 (define COLOR-RED (make-object color% 240 44 94))
 (define COLOR-YELLOW (make-object color% 222 218 123))
 (define COLOR-PURPLE (make-object color% 174 131 244))
+
+(define COLOR-GAME-BORDER (make-object color% 207 207 195))
 (define COLOR-BLOCK-EDGE (make-object color% 0 0 0))
 
 (define BLOCK-WIDTH 7)
@@ -28,17 +30,59 @@
   (send dc set-pen COLOR-BLOCK-EDGE BLOCK-BORDER-WIDTH 'hilite)
   (send dc draw-rounded-rectangle x y BLOCK-WIDTH BLOCK-HEIGHT BLOCK-EDGE-RADIUS))
 
+(define BOARD-WIDTH 10)
+(define BOARD-HEIGHT 20)
+
+;; (define fallen-blocks (make-list BOARD-HEIGHT (make-vector BOARD-WIDTH 0)))
+(define fallen-blocks
+  (list
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 0 0 0 0)
+   #(0 0 0 0 0 0 1 0 0 0)
+   #(0 0 0 1 0 0 1 0 0 0)
+   #(0 1 0 1 0 0 1 1 0 1)
+   #(1 1 1 1 1 0 1 0 1 0)))
+
+(define (draw-game dc fallen)
+  ;; draw borders
+  ;; figure out a nicer way to do this
+  (define row-length (vector-length (list-ref fallen 0)))
+
+  (for ([x (in-range 0 (+ row-length 2))])
+      (draw-block dc (* x BLOCK-WIDTH) 0 COLOR-GAME-BORDER)
+      (draw-block dc (* x BLOCK-WIDTH) (* (+ (length fallen) 1) BLOCK-HEIGHT) COLOR-GAME-BORDER))
+
+  (for ([y (in-range 1 (+ (length fallen) 1))])
+    (draw-block dc 0 (* y BLOCK-HEIGHT) COLOR-GAME-BORDER)
+    (draw-block dc (* (+ row-length 1) BLOCK-WIDTH) (* y BLOCK-HEIGHT) COLOR-GAME-BORDER))
+
+  ;; draw blocks
+  (for ([y (in-range 0 (length fallen))])
+    (define row (list-ref fallen y))
+
+    (for ([x (in-range 0 (vector-length row))])
+      (when (eq? (vector-ref row x) 1)
+        (draw-block dc (* (+ x 1) BLOCK-WIDTH) (* (+ y 1) BLOCK-WIDTH) COLOR-ORANGE)))))
+
 (new canvas% [parent frame]
-             [paint-callback
-              (lambda (canvas dc)
-                (send canvas set-canvas-background COLOR-BACKGROUND)
-                (send dc set-scale 3 3)
-                (draw-block dc (* 0 BLOCK-WIDTH) 0 COLOR-ORANGE)
-                (draw-block dc (* 1 BLOCK-WIDTH) 0 COLOR-PINK)
-                (draw-block dc (* 2 BLOCK-WIDTH) 0 COLOR-CYAN)
-                (draw-block dc (* 3 BLOCK-WIDTH) 0 COLOR-GREEN)
-                (draw-block dc (* 4 BLOCK-WIDTH) 0 COLOR-RED)
-                (draw-block dc (* 5 BLOCK-WIDTH) 0 COLOR-YELLOW)
-                (draw-block dc (* 6 BLOCK-WIDTH) 0 COLOR-PURPLE))])
+     [paint-callback
+      (lambda (canvas dc)
+        (send canvas set-canvas-background COLOR-BACKGROUND)
+        (send dc set-scale 3 3)
+        (draw-game dc fallen-blocks))])
 
 (send frame show #t)
