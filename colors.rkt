@@ -10,6 +10,7 @@
 (provide COLOR-RED)
 (provide COLOR-YELLOW)
 (provide COLOR-PURPLE)
+(provide COLOR-BLUE)
 
 (define COLOR-BACKGROUND (make-object color% 39 40 34))
 (define COLOR-ORANGE (make-object color% 253 135 36))
@@ -19,6 +20,7 @@
 (define COLOR-RED (make-object color% 240 44 94))
 (define COLOR-YELLOW (make-object color% 222 218 123))
 (define COLOR-PURPLE (make-object color% 174 131 244))
+(define COLOR-BLUE (make-object color% 0 70 232))
 
 (define COLOR-GAME-BORDER (make-object color% 207 207 195))
 (define COLOR-BLOCK-EDGE (make-object color% 0 0 0))
