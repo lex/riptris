@@ -45,10 +45,10 @@
     (define/override (on-char event)
       (define key (send event get-key-code))
       (cond
-        ([equal? key 'left] (send falling-riptromino move-left))
-        ([equal? key 'right] (send falling-riptromino move-right))
-        ([equal? key 'up] (send falling-riptromino rotate))
-        ([equal? key 'down] (send falling-riptromino move-down)))
+        ([equal? key 'left] (send falling-riptromino move-left fallen-blocks))
+        ([equal? key 'right] (send falling-riptromino move-right fallen-blocks))
+        ([equal? key 'up] (send falling-riptromino rotate fallen-blocks))
+        ([equal? key 'down] (send falling-riptromino move-down fallen-blocks)))
       (send this refresh))
     (super-new)))
 

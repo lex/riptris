@@ -11,25 +11,25 @@
        [rotations
         (list
          (list
-          (vector 0 0 0 0)
           (vector 0 1 0 0)
           (vector 1 1 1 0)
+          (vector 0 0 0 0)
+          (vector 0 0 0 0))
+
+         (list
+          (vector 0 1 0 0)
+          (vector 0 1 1 0)
+          (vector 0 1 0 0)
           (vector 0 0 0 0))
 
          (list
           (vector 0 0 0 0)
-          (vector 0 1 0 0)
-          (vector 0 1 1 0)
-          (vector 0 1 0 0))
-
-         (list
-          (vector 0 0 0 0)
-          (vector 0 0 0 0)
           (vector 1 1 1 0)
-          (vector 0 1 0 0))
+          (vector 0 1 0 0)
+          (vector 0 0 0 0))
 
          (list
-          (vector 0 0 0 0)
           (vector 0 1 0 0)
           (vector 1 1 0 0)
-          (vector 0 1 0 0)))]))
+          (vector 0 1 0 0)
+          (vector 0 0 0 0)))]))
