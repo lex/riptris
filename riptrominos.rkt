@@ -122,7 +122,7 @@
 
 (define (s-riptromino)
   (new riptromino%
-       [color COLOR-GREEN]
+       [color COLOR-PINK]
        [rotations
         (list
          (list

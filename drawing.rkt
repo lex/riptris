@@ -3,6 +3,7 @@
 (require "colors.rkt" "settings.rkt" "riptromino.rkt")
 
 (provide draw-game)
+(provide draw-block)
 
 (define (draw-game dc fallen-blocks falling-riptromino)
   ;; draw borders
